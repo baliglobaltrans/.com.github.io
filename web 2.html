@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bali Global Trans – Luxury Tour & Rent Car</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* --- Theme & base --- */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+:root{--gold:#C9A857;--dark:#0b1220;--muted:#6b7280;--soft:#f7f7f8;--card:#ffffff}
+html,body{height:100%}
+body{background:var(--soft);color:var(--dark);-webkit-font-smoothing:antialiased}
+
+/* --- NAVBAR --- */
+nav{position:fixed;top:0;left:0;width:100%;padding:1.4vw 2.8vw;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);z-index:999;border-bottom:1px solid rgba(15,23,36,0.04)}
+.brand{display:flex;gap:1.2vw;align-items:center}
+.logo{width:clamp(35px, 4.6vw, 46px);height:clamp(35px, 4.6vw, 46px);border-radius:10px;background:linear-gradient(135deg,var(--gold),#e9d8a6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#071224;font-size:clamp(10px, 1.4vw, 14px)}
+nav h1{font-size:clamp(14px, 1.6vw, 16px);font-weight:700}
+nav ul{display:flex;gap:clamp(10px, 2vw, 20px);list-style:none}
+nav a{color:var(--dark);text-decoration:none;font-weight:600;padding:0.8vw 1vw;border-radius:8px;font-size:clamp(12px, 1.4vw, 14px)}
+nav a.active,nav a:hover{color:var(--gold);background:rgba(201,168,87,0.06)}
+
+/* --- Burger Menu --- */
+.burger-menu{display:none;flex-direction:column;justify-content:center;align-items:center;width:30px;height:30px;cursor:pointer;z-index:1001}
+.burger-menu span{display:block;width:25px;height:3px;background:var(--dark);margin:3px 0;transition:all 0.3s ease;border-radius:3px}
+.burger-menu.active span:nth-child(1){transform:rotate(45deg) translate(6px, 6px)}
+.burger-menu.active span:nth-child(2){opacity:0}
+.burger-menu.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -7px)}
+
+/* --- Mobile Menu --- */
+.mobile-menu{position:fixed;top:0;right:-100%;width:80%;max-width:300px;height:100vh;background:white;box-shadow:-5px 0 15px rgba(0,0,0,0.1);transition:right 0.3s ease;z-index:1000;overflow-y:auto}
+.mobile-menu.active{right:0}
+.mobile-menu-header{padding:20px;background:var(--gold);color:white}
+.mobile-menu-header h3{font-size:18px;font-weight:600}
+.mobile-menu-nav{padding:20px 0}
+.mobile-menu-nav a{display:block;padding:15px 20px;color:var(--dark);text-decoration:none;font-weight:500;border-bottom:1px solid rgba(0,0,0,0.05);transition:all 0.3s}
+.mobile-menu-nav a:hover, .mobile-menu-nav a.active{background:rgba(201,168,87,0.1);color:var(--gold);padding-left:25px}
+.mobile-menu-footer{padding:20px;background:#f8f9fa;border-top:1px solid rgba(0,0,0,0.05)}
+.mobile-menu-footer a{display:inline-block;margin:0 10px;color:var(--muted);font-size:18px;transition:color 0.3s}
+.mobile-menu-footer a:hover{color:var(--gold)}
+.mobile-menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;z-index:999}
+.mobile-menu-overlay.active{display:block}
+
+@media(max-width:900px){
+  nav ul{display:none}
+  .burger-menu{display:flex}
+}
+
+/* --- HERO --- */
+#home{height:88vh;position:relative;overflow:hidden;margin-top:7.2vw}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease-in-out;filter:brightness(76%)}
+.slide.active{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,10,16,0.28),rgba(7,10,16,0.45));z-index:1}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:white;text-align:center;padding:0 1.8vw}
+.hero-content h2{font-size:clamp(20px, 4vw, 40px);line-height:1.02;margin-bottom:1.2vw;font-weight:700}
+.hero-content p{max-width:84vw;color:rgba(255,255,255,0.92);margin-bottom:1.8vw;font-size:clamp(14px, 1.6vw, 16px)}
+.searchBox{display:flex;gap:1vw;background:rgba(255,255,255,0.98);padding:1.2vw;border-radius:1.2vw;max-width:76vw;width:100%;box-shadow:0 8px 30px rgba(2,6,23,0.12)}
+.searchBox input{flex:1;border:0;outline:none;padding:0.8vw 1vw;font-size:clamp(14px, 1.6vw, 16px);border-radius:8px}
+.searchBox button{background:var(--gold);border:0;color:#071224;padding:1vw 1.8vw;border-radius:8px;font-weight:700;cursor:pointer;font-size:clamp(12px, 1.4vw, 14px)}
+
+/* --- Sections --- */
+.section{padding:7.2vw 6%;min-height:40vh}
+.section h3{font-size:clamp(22px, 2.8vw, 28px);font-weight:700;text-align:center;margin-bottom:1.2vw}
+.section p.lead{max-width:96vw;margin:0 auto 2.8vw;text-align:center;color:var(--muted);font-size:clamp(14px, 1.6vw, 16px)}
+
+/* --- Grid Layouts --- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px, 45vw), 1fr));gap:2.2vw}
+.grid-2-col{display:grid;grid-template-columns:repeat(2,1fr);gap:2.2vw}
+.card{background:var(--card);border-radius:1.2vw;overflow:hidden;box-shadow:0 8px 30px rgba(2,6,23,0.06);transition:transform .35s,box-shadow .35s;cursor:pointer}
+.card:hover{transform:translateY(-0.8vw);box-shadow:0 18px 50px rgba(2,6,23,0.12)}
+.card img{width:100%;height:clamp(150px, 20vw, 200px);object-fit:cover;display:block}
+.card .box{padding:1.4vw}
+.card h4{font-size:clamp(16px, 1.8vw, 18px);margin-bottom:0.6vw}
+.card p{color:var(--muted);font-size:clamp(12px, 1.4vw, 14px);margin-bottom:1.2vw}
+.card .meta{display:flex;justify-content:space-between;align-items:center}
+.badge{background:rgba(201,168,87,0.12);color:var(--gold);padding:0.6vw 1vw;border-radius:8px;font-weight:700;font-size:clamp(11px, 1.2vw, 12px)}
+
+/* --- Modal --- */
+.modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:200;padding:2vw}
+.modal.active{display:flex}
+.modal-card{width:100%;max-width:1100px;background:white;border-radius:1.2vw;overflow:hidden;display:grid;grid-template-columns:1fr 420px}
+.modal-gallery{display:grid;grid-template-rows:300px 1fr}
+.modal-gallery img{width:100%;height:100%;object-fit:cover}
+.thumb-row{display:flex;gap:0.8vw;padding:1vw;background:#fafafa}
+.thumb-row img{width:90px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.95}
+.modal-info{padding:2.2vw;overflow:auto}
+.modal-info h2{margin-bottom:0.8vw;font-size:clamp(18px, 2.2vw, 24px)}
+.modal-info p{color:var(--muted);margin-bottom:1vw;font-size:clamp(14px, 1.6vw, 16px)}
+.specs{display:flex;gap:1vw;flex-wrap:wrap;margin-bottom:1.2vw}
+.spec{background:#f6f6f9;padding:0.8vw 1vw;border-radius:8px;color:var(--dark);font-weight:600;font-size:clamp(12px, 1.4vw, 14px)}
+.book-btn{display:inline-block;margin-top:1.2vw;background:var(--gold);color:#071224;padding:1.2vw 1.8vw;border-radius:8px;font-weight:700;text-decoration:none;font-size:clamp(14px, 1.6vw, 16px)}
+.close-modal{position:absolute;right:1.8vw;top:1.8vw;background:transparent;border:0;color:white;font-size:2.2vw;cursor:pointer}
+
+/* --- Booking & Drivers pages --- */
+#booking{display:none;background:white}
+#driver{display:none}
+.booking-form{max-width:76vw;margin:1.8vw auto;padding:2.2vw;background:white;border-radius:1.2vw;box-shadow:0 12px 40px rgba(2,6,23,0.06)}
+.booking-form label{display:block;font-weight:600;margin-bottom:0.6vw;font-size:clamp(14px, 1.6vw, 16px)}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw}
+.booking-grid input, .booking-grid select, textarea{width:100%;padding:1vw;border-radius:8px;border:1px solid #eceff3;font-size:clamp(14px, 1.6vw, 16px)}
+.booking-total{font-size:clamp(16px, 2vw, 20px);font-weight:800;color:var(--gold);text-align:right;margin-top:0.8vw}
+
+/* Drivers */
+.driver-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.8vw}
+.driver-card{background:white;border-radius:1.2vw;overflow:hidden;box-shadow:0 8px 30px rgba(2,6,23,0.06);padding:1.2vw;text-align:left}
+.driver-card img{width:100%;height:clamp(120px, 16vw, 160px);object-fit:cover;border-radius:8px}
+.driver-card h4{margin-top:1vw;font-size:clamp(16px, 1.8vw, 18px)}
+.driver-meta{display:flex;justify-content:space-between;align-items:center;margin-top:0.8vw}
+
+/* --- Why Us Section --- */
+#why-us {padding:7.2vw 6%;background:white;}
+#why-us .container {max-width:1200px;margin:0 auto;}
+#why-us h2 {font-size:clamp(22px, 2.8vw, 28px);font-weight:700;text-align:center;margin-bottom:3vw}
+#why-us .grid {display:grid;grid-template-columns:repeat(2,1fr);gap:2.2vw}
+#why-us .feature-card {text-align:center;padding:2vw}
+#why-us .feature-card i {font-size:clamp(2rem, 3vw, 3rem);color:var(--gold);margin-bottom:1.5vw}
+#why-us .feature-card h3 {font-size:clamp(16px, 1.2vw, 1.2rem);margin-bottom:1vw}
+#why-us .feature-card p {color:var(--muted);font-size:clamp(12px, 1.4vw, 14px)}
+
+/* --- Contact Section --- */
+#contact-section {padding:7.2vw 6%;background:var(--soft)}
+#contact-section .container {max-width:1200px;margin:0 auto;}
+#contact-section h2 {font-size:clamp(22px, 2.8vw, 28px);font-weight:700;text-align:center;margin-bottom:4vw}
+#contact-section .contact-grid {display:grid;grid-template-columns:1fr 1fr;gap:4vw}
+#contact-section .contact-info {display:flex;flex-direction:column;gap:2vw}
+#contact-section .contact-item {display:flex;align-items:center;gap:1.5vw}
+#contact-section .contact-item i {color:var(--gold);font-size:clamp(1.2rem, 1.5vw, 1.5rem);min-width:24px}
+#contact-section .contact-item span {font-size:clamp(12px, 1.6vw, 16px);line-height:1.5}
+#contact-section .map-container {height:clamp(200px, 30vw, 300px);border-radius:1.2vw;overflow:hidden;margin-top:2.5vw}
+#contact-section .contact-form {display:flex;flex-direction:column;gap:2vw}
+#contact-section .contact-form h3 {font-size:clamp(18px, 2vw, 20px);margin-bottom:1vw;color:var(--dark)}
+#contact-section .contact-form input, #contact-section .contact-form textarea {padding:1.5vw;border-radius:8px;border:1px solid #eceff3;font-size:clamp(14px, 1.6vw, 16px)}
+#contact-section .contact-form textarea {min-height:120px;resize:vertical}
+#contact-section .contact-form button {background:var(--gold);color:#071224;padding:1.5vw;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-size:clamp(14px, 1.6vw, 16px);transition:all 0.3s}
+#contact-section .contact-form button:hover {background:#b8943c;transform:translateY(-2px)}
+
+/* --- Footer --- */
+footer{padding:3.6vw 6%;background:#071224;color:white;margin-top:4vw;border-top:1px solid rgba(255,255,255,0.04)}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw}
+.footer-grid .col{min-width:0}
+.footer-grid h5{color:var(--gold);margin-bottom:1.2vw;font-size:clamp(14px, 1.6vw, 16px)}
+.footer-grid p,footer a{color:rgba(255,255,255,0.9);text-decoration:none;font-size:clamp(12px, 1.4vw, 14px)}
+.footer-bottom {text-align:center;margin-top:2vw;padding-top:2vw;border-top:1px solid rgba(255,255,255,0.1)}
+.social-links {display:flex;justify-content:center;gap:1.5vw;margin-top:1.5vw}
+.social-links a {color:rgba(255,255,255,0.7);font-size:clamp(1rem, 1.2vw, 1.2rem);transition:color 0.3s}
+.social-links a:hover {color:var(--gold)}
+
+/* --- Responsive Design --- */
+@media(max-width:900px){
+  .booking-grid{grid-template-columns:1fr}
+  #why-us .grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  #contact-section .contact-grid{grid-template-columns:1fr}
+  .modal-card{grid-template-columns:1fr;max-width:90vw}
+  .modal-gallery{grid-template-rows:250px auto}
+  .footer-grid{grid-template-columns:1fr;gap:1.5vw}
+}
+@media(max-width:480px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:1.5vw}
+  .driver-grid{grid-template-columns:repeat(2,1fr)}
+  .searchBox{flex-direction:column}
+  .searchBox button{width:100%}
+}
+@media(max-width:350px){
+  .grid{grid-template-columns:1fr}
+  .driver-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><div class="logo">BGT</div><h1>Bali Global Trans</h1></div>
+  <ul>
+    <li><a href="#home" data-page="home" class="nav-link active">Home</a></li>
+    <li><a href="#tour-list" data-page="tour-list" class="nav-link">Destinations</a></li>
+    <li><a href="#driver" data-page="driver" class="nav-link">Drivers</a></li>
+    <li><a href="#booking" data-page="booking" class="nav-link">Booking</a></li>
+  </ul>
+  <div class="burger-menu" id="burgerMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <h3>Bali Global Trans</h3>
+  </div>
+  <div class="mobile-menu-nav">
+    <a href="#home" data-page="home" class="mobile-nav-link active">Home</a>
+    <a href="#tour-list" data-page="tour-list" class="mobile-nav-link">Destinations</a>
+    <a href="#driver" data-page="driver" class="mobile-nav-link">Drivers</a>
+    <a href="#booking" data-page="booking" class="mobile-nav-link">Booking</a>
+    <a href="#why-us" class="mobile-nav-link">Why Us</a>
+    <a href="#contact-section" class="mobile-nav-link">Contact</a>
+  </div>
+  <div class="mobile-menu-footer">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</div>
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+<!-- HERO / HOME -->
+<section id="home" class="hero" aria-label="Hero image slideshow">
+  <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90')"></div>
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=90')"></div>
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1541417904950-b855846fe074?auto=format&fit=crop&w=1600&q=90')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h2>Explore Bali — Luxury & Exclusive Experiences</h2>
+    <p>We curate premium tours across Bali's most iconic destinations. Private drivers, VIP transport, unforgettable memories.</p>
+    <div class="searchBox" role="search">
+      <input id="searchInput" placeholder="Cari destinasi: Nusa Penida, Ubud, Kintamani, Uluwatu..." aria-label="Search destinations">
+      <button id="searchBtn">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- TOP DESTINATIONS -->
+<section class="section" id="tour">
+  <h3>Top Luxury Destinations</h3>
+  <p class="lead">Destinasi paling ramai & terbaik di Bali. Klik pada kartu untuk melihat detail lengkap, galeri foto, itinerary, dan paket.</p>
+  <div class="grid" id="topGrid"></div>
+</section>
+
+<!-- ALL DESTINATIONS LIST -->
+<section class="section" id="tour-list" style="display:none;">
+  <h3>All Destinations</h3>
+  <p class="lead">Lebih banyak pilihan destinasi di seluruh Bali — telusuri kategori, filter, dan pilih paket sesuai kebutuhan.</p>
+  <div class="grid" id="allGrid"></div>
+</section>
+
+<!-- DESTINATION DETAIL MODAL -->
+<div class="modal" id="destModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <button class="close-modal" id="closeModalBtn">✕</button>
+    <div class="modal-gallery">
+      <img id="modalMain" class="main" src="" alt="Gallery">
+      <div class="thumb-row" id="thumbRow"></div>
+    </div>
+    <div class="modal-info">
+      <h2 id="modalTitle">Title</h2>
+      <p id="modalShort" class="lead"></p>
+      <div class="specs" id="modalSpecs"></div>
+      <p id="modalDesc" style="color:var(--muted)"></p>
+      <a id="bookNow" href="#" class="book-btn">Book Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING PAGE (hidden until Book Now clicked) -->
+<section id="booking" style="display:none;padding:4vw 6%;background:white;">
+  <h3>Booking Form</h3>
+  <p class="lead">Lengkapi data untuk melakukan pemesanan perjalanan.</p>
+  <div class="booking-form">
+    <form id="bookingForm">
+      <div class="booking-grid">
+        <div>
+          <label for="bf-name">Nama Lengkap</label>
+          <input id="bf-name" type="text" placeholder="Nama Lengkap" required />
+        </div>
+        <div>
+          <label for="bf-phone">Nomor WhatsApp</label>
+          <input id="bf-phone" type="tel" placeholder="+62" required />
+        </div>
+        <div>
+          <label for="bf-date">Tanggal Penjemputan</label>
+          <input id="bf-date" type="date" required />
+        </div>
+        <div>
+          <label for="bf-duration">Durasi (hari)</label>
+          <select id="bf-duration" onchange="updateBookingTotal()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="7">7</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:1.2vw">
+        <label for="bf-vehicle">Pilih Kendaraan</label>
+        <select id="bf-vehicle" onchange="updateBookingTotal()">
+          <option value="450000">Toyota Avanza — 450.000 / hari</option>
+          <option value="650000">Innova Reborn — 650.000 / hari</option>
+          <option value="850000">Fortuner — 850.000 / hari</option>
+          <option value="1200000">Hiace — 1.200.000 / hari</option>
+        </select>
+      </div>
+
+      <div style="margin-top:1.2vw">
+        <label for="bf-destination">Destinasi</label>
+        <input id="bf-destination" type="text" placeholder="Misal: Nusa Penida, Ubud..." />
+      </div>
+
+      <div style="margin-top:1.2vw">
+        <label for="bf-note">Catatan tambahan</label>
+        <textarea id="bf-note" rows="3" placeholder="(opsional)"></textarea>
+      </div>
+
+      <div class="booking-total">Total Harga: <span id="bf-total">Rp 450.000</span></div>
+
+      <div style="margin-top:1.4vw;display:flex;gap:1vw;justify-content:flex-end">
+        <button type="button" id="bf-confirm" style="background:var(--gold);border:none;color:#071224;padding:1vw 1.8vw;border-radius:8px;font-weight:700;">Confirm & Pay</button>
+        <button type="button" id="bf-wa" style="background:#071224;border:none;color:white;padding:1vw 1.8vw;border-radius:8px;font-weight:700;">Confirm via WhatsApp</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- DRIVERS PAGE -->
+<section id="driver" style="display:none;padding:4vw 6%;background:#f7f7f9;">
+  <h3>Available Drivers</h3>
+  <p class="lead">Driver berpengalaman & profesional dengan rating tinggi.</p>
+  <div class="driver-grid" id="driverGrid"></div>
+</section>
+
+<!-- Mengapa Memilih Kami Section -->
+<section id="why-us">
+  <div class="container">
+    <h2>Mengapa Memilih Kami?</h2>
+    <div class="grid">
+      <div class="feature-card">
+        <i class="fas fa-award"></i>
+        <h3>Profesional</h3>
+        <p>Tim dan supir kami berpengalaman dan berdedikasi tinggi.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Aman & Terpercaya</h3>
+        <p>Prioritas utama kami adalah keselamatan barang dan penumpang.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-coins"></i>
+        <h3>Harga Kompetitif</h3>
+        <p>Kami menawarkan layanan terbaik dengan harga yang bersaing.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-headset"></i>
+        <h3>Layanan 24/7</h3>
+        <p>Tim kami siap melayani Anda kapan saja, di mana saja.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Kontak Section -->
+<section id="contact-section">
+  <div class="container">
+    <h2>Hubungi Kami</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Jl. Raya Tuka Gang udang, Dalung, Kec. Kuta Utara, Kabupaten Badung, Bali 80361, Indonesia</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <a href="tel:+6281933301033">0819-3330-1033</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:satujalurbgt@gmail.com">satujalurbgt@gmail.com</a>
+          </div>
+        </div>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.251227844435!2d115.22141481478426!3d-8.658732193754252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e246bc3b6b0f7a7%3A0x1b0b0b0b0b0b0b0b!2sJl.%20Lembusora%20Gg.%20Arjuna%20No.1A%2C%20Paguyangan%2C%20Denpasar%20Utara%2C%20Bali!5e0!3m2!1sen!2sid!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h3>Kirim Pesan</h3>
+        <form id="contactForm">
+          <input type="text" id="name" name="name" placeholder="Nama Lengkap" required>
+          <input type="email" id="email" name="email" placeholder="Email Aktif" required>
+          <input type="text" id="subject" name="subject" placeholder="Subjek" required>
+          <textarea id="message" name="message" rows="5" placeholder="Pesan Anda" required></textarea>
+          <button type="submit">Kirim Pesan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="col"><h5>About Bali Global Trans</h5><p>Premium tours, private shuttle, and luxury car rentals across beautiful Bali.</p></div>
+    <div class="col"><h5>Contact</h5><p>Email: <a href="mailto:info@baliglobaltrans.my.id">info@baliglobaltrans.my.id</a></p><p>Phone: +62 812-3456-789</p><p>Address: Jl. Raya Kuta No.88, Kuta, Badung, Bali, Indonesia</p></div>
+    <div class="col"><h5>Popular Areas</h5><p>Ubud • Uluwatu • Nusa Penida • Kintamani • Seminyak • Tanah Lot</p></div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Bali Global Trans — All rights reserved</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// --- Data ---
+const destinations = [
+  {id:'nusa-penida', title:'Nusa Penida', price:'650K', short:'Crystal Bay • Kelingking • Broken Beach • Diamond Beach', main:'https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1600&q=90', images:['https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1549887534-8c99a1c6f0b9?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90'], duration:'10 jam', rating:4.9, desc:'Nusa Penida menawarkan pemandangan tebing yang dramatis, pantai berpasir putih, dan spot foto ikonik. Paket ini termasuk penjemputan, kapal fast boat, driver berpengalaman, serta makan siang.'},
+  {id:'ubud', title:'Ubud', price:'550K', short:'Rice Terrace • Monkey Forest • Tirta Empul', main:'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=1600&q=90', images:['https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1504731230625-5f8d5d4a3a67?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1549893070-1b8b6a4f9d4b?auto=format&fit=crop&w=1600&q=90'], duration:'8 jam', rating:4.8, desc:'Ubud adalah pusat budaya Bali, terkenal dengan sawah bertingkat, seni, dan spa. Paket ini cocok untuk yang ingin merasakan budaya lokal dan suasana alam.'},
+  {id:'mount-batur', title:'Mount Batur Sunrise', price:'700K', short:'Trekking • Sunrise • Hot Spring', main:'https://images.unsplash.com/photo-1608995468739-38ffccb98fa3?auto=format&fit=crop&w=1600&q=90', images:['https://images.unsplash.com/photo-1608995468739-38ffccb98fa3?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=90','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=90'], duration:'5 jam', rating:4.9, desc:'Pengalaman trekking ke puncak untuk menyaksikan matahari terbit yang menakjubkan, diikuti relaksasi di pemandian air panas alami.'},
+  {id:'tanah-lot', title:'Tanah Lot', price:'450K', short:'Temple Sunset • Cultural Visit', main:'https://images.unsplash.com/photo-1508264165352-258a6c7f2ef4?auto=format&fit=crop&w=1600&q=90', images:[], duration:'4 jam', rating:4.7, desc:'Pura ikonik di atas batu karang, cocok untuk menikmati sunset.'},
+  {id:'semiyak', title:'Seminyak & Beach Club', price:'500K', short:'Beach club • Shopping • Fine dining', main:'https://images.unsplash.com/photo-1504851149312-7f2b0f6b8b9e?auto=format&fit=crop&w=1600&q=90', images:[], duration:'6 jam', rating:4.6, desc:'Area gaya hidup dengan beach club dan restoran mewah.'},
+  {id:'lovina', title:'Lovina Dolphin Tour', price:'750K', short:'Dolphin watching • Calm beach', main:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=90', images:[], duration:'6 jam', rating:4.5, desc:'Nikmati pengalaman melihat lumba-lumba liar saat matahari terbit.'}
+];
+
+const drivers = [
+  {id:1,name:'Gede Wirawan',photo:'https://i.pravatar.cc/400?img=12',bio:'Pengalaman 5 tahun • Bahasa Inggris lancar',rating:4.9,trips:35},
+  {id:2,name:'Komang Putra',photo:'https://i.pravatar.cc/400?img=47',bio:'Friendly • Ahli wisata Ubud & Kintamani',rating:4.8,trips:42},
+  {id:3,name:'Made Sudira',photo:'https://i.pravatar.cc/400?img=32',bio:'English + Japanese • Nusa Penida Specialist',rating:5.0,trips:51}
+];
+
+// --- UI helpers ---
+const topGrid = document.getElementById('topGrid');
+const allGrid = document.getElementById('allGrid');
+const driverGrid = document.getElementById('driverGrid');
+const modal = document.getElementById('destModal');
+const modalMain = document.getElementById('modalMain');
+const modalTitle = document.getElementById('modalTitle');
+const modalShort = document.getElementById('modalShort');
+const modalSpecs = document.getElementById('modalSpecs');
+const modalDesc = document.getElementById('modalDesc');
+const thumbRow = document.getElementById('thumbRow');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const bookNowBtn = document.getElementById('bookNow');
+
+function makeCard(d){
+  const a = document.createElement('a');
+  a.className = 'card';
+  a.href = '#';
+  a.innerHTML = `<img src="${d.main}" alt="${d.title}"><div class='box'><h4>${d.title}</h4><p>${d.short}</p><div class='meta'><span class='badge'>${d.rating} ⭐</span><span style="font-weight:700">${d.price}</span></div></div>`;
+  a.addEventListener('click', e => { e.preventDefault(); openModal(d); });
+  return a;
+}
+
+function renderGrids(){
+  topGrid.innerHTML = '';
+  allGrid.innerHTML = '';
+  destinations.slice(0,4).forEach(d => topGrid.appendChild(makeCard(d)));
+  destinations.forEach(d => allGrid.appendChild(makeCard(d)));
+}
+
+function renderDrivers(){
+  driverGrid.innerHTML = '';
+  drivers.forEach(dr =>{
+    const c = document.createElement('div'); c.className='driver-card';
+    c.innerHTML = `<img src="${dr.photo}" alt="${dr.name}"><h4>${dr.name}</h4><p style=\"color:var(--muted)\">${dr.bio}</p><div class=\"driver-meta\"><span class=\"badge\">⭐ ${dr.rating}</span><span>${dr.trips} trips</span></div>`;
+    driverGrid.appendChild(c);
+  })
+}
+
+function openModal(d){
+  modal.classList.add('active');
+  modalMain.src = (d.images && d.images.length) ? d.images[0] : d.main;
+  modalTitle.innerText = `${d.title} — ${d.duration}`;
+  modalShort.innerText = d.short;
+  modalDesc.innerText = d.desc;
+  modalSpecs.innerHTML = '';
+  ['Duration: '+d.duration,'Price: '+d.price,'Rating: '+d.rating+' ⭐'].forEach(s=>{const sp=document.createElement('div');sp.className='spec';sp.innerText=s;modalSpecs.appendChild(sp)});
+  thumbRow.innerHTML = '';
+  (d.images && d.images.length ? d.images : [d.main]).forEach(img => { const t = document.createElement('img'); t.src = img; t.alt = d.title; t.addEventListener('click', ()=> modalMain.src = img); thumbRow.appendChild(t); });
+}
+
+closeModalBtn.addEventListener('click', ()=> modal.classList.remove('active'));
+modal.addEventListener('click', e=>{ if(e.target === modal) modal.classList.remove('active') });
+
+// hero slider
+let sidx=0; setInterval(()=>{ const slides=document.querySelectorAll('.slide'); slides.forEach(s=>s.classList.remove('active')); sidx=(sidx+1)%slides.length; slides[sidx].classList.add('active'); },4500);
+
+// SEARCH logic (also Enter key support)
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+searchBtn.addEventListener('click', doSearch);
+searchInput.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') doSearch(); });
+function doSearch(){
+  const q = searchInput.value.toLowerCase().trim();
+  const results = destinations.filter(d => (d.title + ' ' + d.short + ' ' + (d.desc||'')).toLowerCase().includes(q));
+  allGrid.innerHTML = '';
+  if(results.length){ results.forEach(r=> allGrid.appendChild(makeCard(r)) ); }
+  else { allGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted)">No results found</p>'; }
+  showPage('tour-list');
+}
+
+// Page view controller
+function showPage(page){
+  // sections that act like pages
+  const pages = ['home','tour','tour-list','booking','driver','contact'];
+  pages.forEach(p=>{
+    const el = document.getElementById(p);
+    if(!el) return;
+    el.style.display = (p === page || (p==='tour' && page==='home')) ? 'block' : 'none';
+  });
+  // highlight nav
+  document.querySelectorAll('.nav-link').forEach(a=> a.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-link').forEach(a=> a.classList.remove('active'));
+  const nav = document.querySelector(`.nav-link[data-page="${page}"]`);
+  const mobileNav = document.querySelector(`.mobile-nav-link[data-page="${page}"]`);
+  if(nav) nav.classList.add('active');
+  if(mobileNav) mobileNav.classList.add('active');
+  // scroll to top
+  window.scrollTo({top:0,behavior:'smooth'});
+  // close mobile menu
+  closeMobileMenu();
+}
+
+// bind nav links
+document.querySelectorAll('.nav-link').forEach(a=>{
+  a.addEventListener('click', e =>{
+    e.preventDefault(); const page = a.getAttribute('data-page'); showPage(page);
+  })
+});
+
+// Mobile menu functionality
+const burgerMenu = document.getElementById('burgerMenu');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+burgerMenu.addEventListener('click', toggleMobileMenu);
+mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+function toggleMobileMenu() {
+  burgerMenu.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+  mobileMenuOverlay.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+  burgerMenu.classList.remove('active');
+  mobileMenu.classList.remove('active');
+  mobileMenuOverlay.classList.remove('active');
+}
+
+// Mobile menu navigation
+document.querySelectorAll('.mobile-nav-link').forEach(a=>{
+  a.addEventListener('click', e =>{
+    e.preventDefault(); 
+    const page = a.getAttribute('data-page');
+    const href = a.getAttribute('href');
+    if(page) {
+      showPage(page);
+    } else if(href) {
+      // Handle section navigation
+      const sectionId = href.substring(1);
+      document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
+      closeMobileMenu();
+    }
+  })
+});
+
+// Book Now from modal -> open booking page and prefill destination
+bookNowBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const destText = modalTitle.innerText.split(' — ')[0];
+  document.getElementById('bf-destination').value = destText;
+  showPage('booking');
+  modal.classList.remove('active');
+});
+
+// Booking total & WhatsApp
+function updateBookingTotal(){
+  const price = parseInt(document.getElementById('bf-vehicle').value,10) || 0;
+  const days = parseInt(document.getElementById('bf-duration').value,10) || 1;
+  const total = price * days;
+  document.getElementById('bf-total').innerText = 'Rp ' + total.toLocaleString();
+  return total;
+}
+
+document.getElementById('bf-wa').addEventListener('click', ()=>{
+  const name = document.getElementById('bf-name').value || '-';
+  const phone = document.getElementById('bf-phone').value || '-';
+  const date = document.getElementById('bf-date').value || '-';
+  const days = document.getElementById('bf-duration').value || '1';
+  const vehicleText = document.getElementById('bf-vehicle').options[document.getElementById('bf-vehicle').selectedIndex].text;
+  const dest = document.getElementById('bf-destination').value || '-';
+  const total = updateBookingTotal();
+  const admin = '6281234567890'; // edit admin number
+  const msg = encodeURIComponent(`Halo Bali Global Trans
+Saya ingin booking:
+Nama: ${name}
+WA: ${phone}
+Tanggal: ${date}
+Durasi: ${days} hari
+Kendaraan: ${vehicleText}
+Tujuan: ${dest}
+Total: Rp ${total.toLocaleString()}
+Terima kasih.`);
+  window.open(`https://wa.me/${admin}?text=${msg}`);
+});
+
+// Contact form submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  // Here you would normally send the form data to a server
+  // For this example, we'll just show an alert
+  alert('Pesan Anda telah terkirim! Kami akan segera menghubungi Anda.');
+  this.reset();
+});
+
+// initial render
+renderGrids(); renderDrivers(); showPage('home'); updateBookingTotal();
+</script>
+</body>
+</html>
